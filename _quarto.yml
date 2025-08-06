@@ -12,10 +12,12 @@ website:
         href: https://github.com/januarytabaka
       - icon: twitter
         href: https://x.com/january_tabaka
-      - text: "Spanish"
-        href: https://es.aiscratchpad.com
-      - text: "Catalan"
-        href: https://cat.aiscratchpad.com
+      - text: EN
+        menu:
+          - text: ES
+            href: https://es.aiscratchpad.com
+          - text: CAT
+            href: https://cat.aiscratchpad.com
   comments:
     giscus:
       repo: januarytabaka/januarytabaka.github.io
@@ -27,11 +29,12 @@ website:
       theme: "preferred_color_scheme"
 format:
   html:
+    respect-user-color-scheme: true
     theme:
-      - cosmo
-      - brand
+      light: flatly
+      dark: darkly
     css: styles.css
-    #include-in-header: _includes/matomo.html
+    include-in-header: _includes/matomo.html
     security:
       content-security-policy:
         # Allows scripts from your own site and giscus
