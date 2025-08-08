@@ -59,7 +59,7 @@ Here's what each stage of visualization shows:
 
 *   **2. After Centering (Middle):** This plot shows the data after we subtract the mean from each feature. The data  has shifted to be centered around the origin (0,0), but the fundamental problem remains. The plot is still a distorted line, and the `Population` feature continues to dominate the x-axis.
 
-*   **3. After Scaling (Right):** This is the final transformation. After dividing by the standard deviation, the variance of both features becomes equal. The data is now a circular cloud of points. The distortion is gone, and the true underlying structure of the data is finally revealed and ready for a machine learning model.
+*   **3. After Scaling (Right):** This is the final transformation. After dividing by the standard deviation, the variance of both features becomes equal. The data is now a cloud of points. The distortion is gone, and the true underlying structure of the data is revealed and ready for a machine learning model.
 
 ```{python}
 #| label: py-scaling
@@ -67,53 +67,61 @@ Here's what each stage of visualization shows:
 #| eval: true
 #| fig-cap: "The distribution of housing features. at three stages: raw, centered, and fully scaled. Notice how centering shifts the data, but only the final scaling step corrects the distortion."
 
-import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.datasets import fetch_california_housing
 
-np.random.seed(42)
+# Load the full dataset from scikit-learn
+housing = fetch_california_housing()
 
-X = fetch_california_housing().data[:,:8]
+# Convert the data to a pandas DataFrame for easier handling
+df = pd.DataFrame(housing.data, columns=housing.feature_names)
 
-n_samples = 100
-n_rows = X.shape[0]
-ind = np.random.choice(n_rows, size=n_samples, replace=False)
-X_train = X[ind, :]
+# Select only the two features we need for visualization
+X = df[['Population', 'HouseAge']]
 
-X_features = ['MedInc',
-  'HouseAge',
-  'AveRooms',
-  'AveBedrms',
-  'Population',
-  'AveOccup',
-  'Latitude',
-  'Longitude'
-]
-x_ax_f_idx = 4
-y_ax_f_idx = 1
+# Create a smaller, random sample of 100 data points for a clean plot
+X_train = X.sample(n=100, random_state=42)
 
-mu     = np.mean(X_train,axis=0)   
-sigma  = np.std(X_train,axis=0) 
-X_mean = (X_train - mu)
-X_norm = (X_train - mu)/sigma      
+# Calculate the mean and standard deviation for each column
+mu = X_train.mean()
+sigma = X_train.std()
 
-fig,ax=plt.subplots(1, 3, figsize=(8, 2))
-ax[0].scatter(X_train[:,x_ax_f_idx], X_train[:,y_ax_f_idx])
-ax[0].set_xlabel(X_features[x_ax_f_idx]); ax[0].set_ylabel(X_features[y_ax_f_idx]);
-ax[0].set_title("unnormalized")
+# Center the data by subtracting the mean
+X_centered = X_train - mu
+
+# Scale the data by dividing by the standard deviation
+X_scaled = (X_train - mu) / sigma
+
+# Create the Three Plots
+fig, ax = plt.subplots(1, 3, figsize=(15, 4.5))
+
+# Plot 1: Raw Data
+ax[0].scatter(X_train['Population'], X_train['HouseAge'])
+ax[0].set_xlabel("Population")
+ax[0].set_ylabel("House Age")
+ax[0].set_title("1. Raw Data")
 ax[0].axis('equal')
+ax[0].grid(True)
 
-ax[1].scatter(X_mean[:,x_ax_f_idx], X_mean[:,y_ax_f_idx])
-ax[1].set_xlabel(X_features[x_ax_f_idx]); ax[1].set_ylabel(X_features[y_ax_f_idx]);
-ax[1].set_title(r"X - $\mu$")
+# Plot 2: Centered Data
+ax[1].scatter(X_centered['Population'], X_centered['HouseAge'])
+ax[1].set_xlabel("Population")
+ax[1].set_ylabel("House Age")
+ax[1].set_title("2. After Centering (X - μ)")
 ax[1].axis('equal')
+ax[1].grid(True)
 
-ax[2].scatter(X_norm[:,x_ax_f_idx], X_norm[:,y_ax_f_idx])
-ax[2].set_xlabel(X_features[x_ax_f_idx]); ax[2].set_ylabel(X_features[y_ax_f_idx]);
-ax[2].set_title(r"Z-score normalized")
+# Plot 3: Scaled Data
+ax[2].scatter(X_scaled['Population'], X_scaled['HouseAge'])
+ax[2].set_xlabel("Population")
+ax[2].set_ylabel("House Age")
+ax[2].set_title("3. After Scaling ((X - μ) / σ)")
 ax[2].axis('equal')
+ax[2].grid(True)
+
+fig.suptitle("The Step-by-Step Effect of Scaling", fontsize=16)
 plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-fig.suptitle("distribution of features before, during, after normalization")
 plt.show()
 ```
 
@@ -133,53 +141,61 @@ It is inspired by the "Feature Scaling and Learning Rate (Multi-variable)" lab f
 #| eval: false
 #| fig-cap: "The distribution of housing features. at three stages: raw, centered, and fully scaled. Notice how centering shifts the data, but only the final scaling step corrects the distortion."
 
-import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.datasets import fetch_california_housing
 
-np.random.seed(42)
+# Load the full dataset from scikit-learn
+housing = fetch_california_housing()
 
-X = fetch_california_housing().data[:,:8]
+# Convert the data to a pandas DataFrame for easier handling
+df = pd.DataFrame(housing.data, columns=housing.feature_names)
 
-n_samples = 100
-n_rows = X.shape[0]
-ind = np.random.choice(n_rows, size=n_samples, replace=False)
-X_train = X[ind, :]
+# Select only the two features we need for visualization
+X = df[['Population', 'HouseAge']]
 
-X_features = ['MedInc',
-  'HouseAge',
-  'AveRooms',
-  'AveBedrms',
-  'Population',
-  'AveOccup',
-  'Latitude',
-  'Longitude'
-]
-x_ax_f_idx = 4
-y_ax_f_idx = 1
+# Create a smaller, random sample of 100 data points for a clean plot
+X_train = X.sample(n=100, random_state=42)
 
-mu     = np.mean(X_train,axis=0)   
-sigma  = np.std(X_train,axis=0) 
-X_mean = (X_train - mu)
-X_norm = (X_train - mu)/sigma      
+# Calculate the mean and standard deviation for each column
+mu = X_train.mean()
+sigma = X_train.std()
 
-fig,ax=plt.subplots(1, 3, figsize=(8, 2))
-ax[0].scatter(X_train[:,x_ax_f_idx], X_train[:,y_ax_f_idx])
-ax[0].set_xlabel(X_features[x_ax_f_idx]); ax[0].set_ylabel(X_features[y_ax_f_idx]);
-ax[0].set_title("unnormalized")
+# Center the data by subtracting the mean
+X_centered = X_train - mu
+
+# Scale the data by dividing by the standard deviation
+X_scaled = (X_train - mu) / sigma
+
+# Create the Three Plots
+fig, ax = plt.subplots(1, 3, figsize=(15, 4.5))
+
+# Plot 1: Raw Data
+ax[0].scatter(X_train['Population'], X_train['HouseAge'])
+ax[0].set_xlabel("Population")
+ax[0].set_ylabel("House Age")
+ax[0].set_title("1. Raw Data")
 ax[0].axis('equal')
+ax[0].grid(True)
 
-ax[1].scatter(X_mean[:,x_ax_f_idx], X_mean[:,y_ax_f_idx])
-ax[1].set_xlabel(X_features[x_ax_f_idx]); ax[1].set_ylabel(X_features[y_ax_f_idx]);
-ax[1].set_title(r"X - $\mu$")
+# Plot 2: Centered Data
+ax[1].scatter(X_centered['Population'], X_centered['HouseAge'])
+ax[1].set_xlabel("Population")
+ax[1].set_ylabel("House Age")
+ax[1].set_title("2. After Centering (X - μ)")
 ax[1].axis('equal')
+ax[1].grid(True)
 
-ax[2].scatter(X_norm[:,x_ax_f_idx], X_norm[:,y_ax_f_idx])
-ax[2].set_xlabel(X_features[x_ax_f_idx]); ax[2].set_ylabel(X_features[y_ax_f_idx]);
-ax[2].set_title(r"Z-score normalized")
+# Plot 3: Scaled Data
+ax[2].scatter(X_scaled['Population'], X_scaled['HouseAge'])
+ax[2].set_xlabel("Population")
+ax[2].set_ylabel("House Age")
+ax[2].set_title("3. After Scaling ((X - μ) / σ)")
 ax[2].axis('equal')
+ax[2].grid(True)
+
+fig.suptitle("The Step-by-Step Effect of Scaling", fontsize=16)
 plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-fig.suptitle("distribution of features before, during, after normalization")
 plt.show()
 ```
 
