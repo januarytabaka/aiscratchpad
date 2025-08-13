@@ -2,10 +2,18 @@
 title: "Feature Scaling Part 1: When (and Why) to Scale Data in Machine Learning"
 author: "January Tabaka"
 date: "2025-07-30"
-categories: [Fundamentals, Data Preprocessing, Scaling]
+description: "Learn why feature scaling is a critical preprocessing step in machine learning. This guide explains which models are sensitive to data scale and provides a clear visual demonstration."
+categories:
+  - Fundamentals
+  - Data Preprocessing
+  - Scaling
+  - "Series: Feature Scaling"
 image: "/images/dist_data_landscape.png"
-draft: false
 lang: en
+toc: true
+toc-depth: 2
+code-tools: true
+draft: false
 ---
 
 ## The Unseen Bias in Data
