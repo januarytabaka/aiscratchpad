@@ -45,9 +45,9 @@ When you first load a dataset for a real-world problem, you'll immediately notic
 
 
 * In an industrial **Predictive Maintenance** scenario
-    - we could have the **temperature** of a machine in Celsius (e.g., 40-90) as one feature,
-    - as another its **vibrations** in Hz (e.g., 10-2000),
-    - and yet as another its **total operational hours** (e.g., 5,000-50,000)
+    - one feature could be the **temperature** of a machine in Celsius (e.g., 40-90) as one feature,
+    - another its **vibrations** in Hz (e.g., 10-2000),
+    - and yet another its **total operational hours** (e.g., 5,000-50,000)
 
 :::
 
@@ -57,7 +57,7 @@ In this scenario, the features exist on wildly different scales. A newcomer migh
 
 To see why scaling matters, let's look at some data.
 
-To illustrate this, we'll use the well-known California Housing dataset, available directly through scikit-learn.
+This concept is illustrated using the well-known California Housing dataset, available directly through scikit-learn.
 
 It's a powerful way to see the two key steps of the standardization process.
 
@@ -65,7 +65,7 @@ Here's what each stage of visualization shows:
 
 *   **1. Raw Data (Left):** This is the original, un-scaled data from the sample of the California Housing dataset. The plot is dramatically distorted into a thin line. Because the `Population` feature has a much larger range and variance than the `HouseAge`, the true relationship between the features is completely hidden.
 
-*   **2. After Centering (Middle):** This plot shows the data after we subtract the mean from each feature. The data  has shifted to be centered around the origin (0,0), but the fundamental problem remains. The plot is still a distorted line, and the `Population` feature continues to dominate the x-axis.
+*   **2. After Centering (Middle):** This plot shows the data after subtracting the mean from each feature. The data has shifted to be centered around the origin (0,0), but the fundamental problem remains. The plot is still a distorted line, and the `Population` feature continues to dominate the x-axis.
 
 *   **3. After Scaling (Right):** This is the final transformation. After dividing by the standard deviation, the variance of both features becomes equal. The data is now a cloud of points. The distortion is gone, and the true underlying structure of the data is revealed and ready for a machine learning model.
 
@@ -85,7 +85,7 @@ housing = fetch_california_housing()
 # Convert the data to a pandas DataFrame for easier handling
 df = pd.DataFrame(housing.data, columns=housing.feature_names)
 
-# Select only the two features we need for visualization
+# Select only the two features needed for visualization
 X = df[['Population', 'HouseAge']]
 
 # Create a smaller, random sample of 100 data points for a clean plot
@@ -159,7 +159,7 @@ housing = fetch_california_housing()
 # Convert the data to a pandas DataFrame for easier handling
 df = pd.DataFrame(housing.data, columns=housing.feature_names)
 
-# Select only the two features we need for visualization
+# Select only the two features needed for visualization
 X = df[['Population', 'HouseAge']]
 
 # Create a smaller, random sample of 100 data points for a clean plot
@@ -244,4 +244,4 @@ For almost everything else, however, scaling should be a critical step in the mo
 
 ## What's Next?
 
-Now that we understand when and why scaling is such a fundamental step, it’s time to dive into the how. In the next post, we’ll explore three of the most widely used scaling techniques—StandardScaler, MinMaxScaler, and RobustScaler—in Python’s scikit-learn, along with their counterparts in R. Each method will be demonstrated with hands-on, executable code to help you apply them confidently in your projects.
+With the importance of scaling established, the focus now shifts to its practical implementation. The [next post](/posts/feature-scaling-part-2/index.qmd) explores three of the most widely used scaling techniques: **Standardization**, **Normalization**, and **Robust Scaling**. Each method is demonstrated with hands-on, executable code using both Python and R.
