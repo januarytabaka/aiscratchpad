@@ -11,8 +11,8 @@ categories:
 image: "/images/dist_data_landscape.png"
 lang: en
 toc: true
-toc-depth: 2
-code-tools: true
+toc-depth: 3
+code-copy: true
 draft: false
 ---
 

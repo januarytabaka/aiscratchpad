@@ -16,6 +16,7 @@ lang: en
 toc: true
 toc-depth: 3
 code-copy: true
+draft: false
 ---
 
 In the [previous post](/posts/feature-scaling-part-1/index.qmd) we covered why scaling data is a critical step in machine learning. Now, let's dive into the how. In this guide, we'll explore the three most common scaling techniques and their implementation in both Python and R.
