@@ -121,11 +121,11 @@ standardized_data <- bake(prepared_standarization_recipe, new_data = data)
 mean_sd <- tidy(prepared_standarization_recipe, number = 1)
 
 # Pull the specific values from the tidy tibble
-mean <- mean_sd %>% filter(statistic == "mean") %>% pull(value)
-sd   <- mean_sd %>% filter(statistic == "sd") %>% pull(value)
+mean_val <- mean_sd %>% filter(statistic == "mean") %>% pull(value)
+sd_val   <- mean_sd %>% filter(statistic == "sd") %>% pull(value)
 
-cat("\nLearned mean: ", mean,
-    '\nLearned standard deviation: ', sd,
+cat("\nLearned mean: ", mean_val,
+    '\nLearned standard deviation: ', sd_val,
     "\nStandardized Data: [",
     paste(round(standardized_data$feature, 3), collapse = " "),"]")
 ```
