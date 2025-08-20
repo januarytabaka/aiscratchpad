@@ -348,11 +348,11 @@ For these reasons, the vectorized approach is the preferred method for mathemati
 
 :::
 
-::::{.callout-note collapse="true"}
+:::{.callout-note collapse="true"}
 ### Advanced Use Cases
 
 While `StandardScaler` is almost always used with its default settings, there are specific scenarios like working with sparse data from text analysis where more control is needed. These edge cases, including the `with_mean` and `with_std` **parameters**, will be covered in the last post in the series.
-::::
+:::
 
 ## Normalization (Min-Max Scaling)
 
@@ -469,7 +469,7 @@ cat("Minimum: ", min_val, "\nMaximum: ", max_val,
 
 :::
 
-::::{.callout-note collapse="true"}
+:::{.callout-note collapse="true"}
 ### Choosing a Scaling Strategy: Standardization vs. Normalization
 
 The choice between standardization (Z-score scaling) and normalization (Min-Max scaling) is a critical decision in many data preprocessing workflows. While both are common, they operate on different principles and are suited for different tasks.
