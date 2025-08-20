@@ -25,10 +25,10 @@ website:
         href: index.xml
   comments:
     giscus:
-      repo: januarytabaka/januarytabaka.github.io
-      repo-id: "R_kgDOPTiMRA"
+      repo: januarytabaka/aiscratchpad
+      repo-id: "R_kgDOPZT7sQ"
       category: "General"
-      category-id: "DIC_kwDOPTiMRM4CtgfQ"
+      category-id: "DIC_kwDOPZT7sc4CuZIs"
       mapping: "pathname"
       reactions-enabled: true
       theme: "preferred_color_scheme"
